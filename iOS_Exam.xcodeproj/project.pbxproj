@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		788E5E9F2DAFCCC300840EBA /* ItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 788E5E9E2DAFCCC300840EBA /* ItemCell.swift */; };
 		78C214A92DA69D2400407912 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 78C214A22DA69D2400407912 /* Preview Assets.xcassets */; };
 		78C214AA2DA69D2400407912 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 78C214A42DA69D2400407912 /* Assets.xcassets */; };
 		78C214AC2DA69D2400407912 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78C214A52DA69D2400407912 /* ContentView.swift */; };
@@ -20,6 +21,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		788E5E9E2DAFCCC300840EBA /* ItemCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemCell.swift; sourceTree = "<group>"; };
 		78C2148B2DA6924B00407912 /* iOS_Exam.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iOS_Exam.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		78C214A22DA69D2400407912 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		78C214A42DA69D2400407912 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -110,6 +112,7 @@
 		78C214B82DA69E5100407912 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				788E5E9E2DAFCCC300840EBA /* ItemCell.swift */,
 				78C214BF2DA6A6F800407912 /* StatsSheetView.swift */,
 				78C214A52DA69D2400407912 /* ContentView.swift */,
 				78C214B92DA69E6500407912 /* CarouselView.swift */,
@@ -191,6 +194,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				788E5E9F2DAFCCC300840EBA /* ItemCell.swift in Sources */,
 				78C214C02DA6A6F800407912 /* StatsSheetView.swift in Sources */,
 				78C214B42DA69D7B00407912 /* ContentViewModel.swift in Sources */,
 				78C214B12DA69D3B00407912 /* MockModel.swift in Sources */,

@@ -51,17 +51,13 @@ struct StatsSheetView: View {
             Spacer()
         }
         .padding()
-        .background(
-            Color.white
-//            RoundedRectangle(cornerRadius: 20)
-//                .fill(Color.white)
-//                .shadow(color: .black.opacity(0.1), radius: 8, x: 0, y: -2)
-        )
-//        .padding()
+        .background(Color.white)
     }
 
-    
-    func getTopCharacters(from titles: [String]) -> [(Character, Int)] {
+    /// Calculate the top 3 most frequent characters in the titles
+    /// - Parameter titles: Array of title strings to analyze
+    /// - Returns: Array of tuples containing character and count, sorted by frequency
+    private func getTopCharacters(from titles: [String]) -> [(Character, Int)] {
         var freq: [Character: Int] = [:]
         for title in titles {
             for char in title.lowercased() where char.isLetter {

@@ -1,3 +1,12 @@
+//
+//  ItemCell.swift
+//  iOS_Exam
+//
+//  Created by Azruddin Shaikh on 16/04/25.
+//
+
+import SwiftUI
+
 struct ItemCell: View {
     let image: String
     let item: MockItemData

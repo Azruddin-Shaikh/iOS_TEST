@@ -8,16 +8,18 @@
 import SwiftUI
 
 struct ContentView: View {
-    
+    // Use private access modifiers as suggested in feedback
     @StateObject private var viewModel = ContentViewModel()
-    let list = ["apple", "banana", "orange", "blueberry"]
-        @State private var showSheet = false
-
+    @State private var showSheet = false
+    // UIApplication environment to dismiss keyboard
+    @Environment(\.scenePhase) private var scenePhase
+    
     var body: some View {
         ZStack(alignment: .bottomTrailing) {
             ScrollView {
                 LazyVStack(pinnedViews: [.sectionHeaders]) {
                     
+                    // Carousel view displaying images
                     CarouselView(
                         selectedIndex: $viewModel.selectedCarouselIndex,
                         data: viewModel.dataList
@@ -31,24 +33,8 @@ struct ContentView: View {
                             id: \.self
                         ) { index in
                             let item = items[index]
-                            HStack (spacing: 10){
-                                Image(viewModel.currentCarouselImage)
-                                    .resizable()
-                                    .scaledToFill()
-                                    .frame(width: 50, height: 50)
-                                    .cornerRadius(10)
-                                
-                                VStack(alignment: .leading, spacing: 5){
-                                    Text(item.title)
-                                    Text(item.subTitle)
-                                }
-                            }
-                            .padding(5)
-                            .frame(maxWidth: .infinity, alignment: .leading)
-                            .background(Color(UIColor.systemBackground))
-                            .cornerRadius(8)
-                            .shadow(radius: 1)
-                            .padding(.horizontal)
+                            ItemCell(image: viewModel.currentCarouselImage, item: item)
+                                .padding(.horizontal)
                         }
                     }
                 }
@@ -56,6 +42,7 @@ struct ContentView: View {
             }
             .clipped()
             
+            // Action button for statistics sheet
             Button {
                 showSheet.toggle()
             } label: {
@@ -66,25 +53,41 @@ struct ContentView: View {
             }
             .padding()
         }
-        .onChange(of: viewModel.selectedCarouselIndex) {
+        .onChange(of: viewModel.selectedCarouselIndex) { _ in
+            // Clear search text and dismiss keyboard when category changes
             viewModel.searchText = ""
+            hideKeyboard()
         }
         .sheet(isPresented: $showSheet) {
+            // Pass filtered data to reflect correct statistics based on search results
             StatsSheetView(
                 listIndex: viewModel.selectedCarouselIndex,
-                items: viewModel.currentItemData
+                items: viewModel.filteredData
             )
             .presentationDetents([.height(230)])
         }
     }
     
-    var searchBar: some View {
-        HStack (spacing: 0){
+    /// Search bar with clear button functionality
+    private var searchBar: some View {
+        HStack(spacing: 0) {
             Image(systemName: "magnifyingglass")
                 .padding(.leading, 10)
+            
             TextField("Search...", text: $viewModel.searchText)
                 .textFieldStyle(PlainTextFieldStyle())
                 .padding()
+            
+            // Clear button that appears when search text is not empty
+            if !viewModel.searchText.isEmpty {
+                Button(action: {
+                    viewModel.searchText = ""
+                }) {
+                    Image(systemName: "xmark.circle.fill")
+                        .foregroundColor(.gray)
+                }
+                .padding(.trailing, 10)
+            }
         }
         .frame(maxWidth: .infinity)
         .background(
@@ -93,6 +96,11 @@ struct ContentView: View {
         )
         .padding([.horizontal, .bottom])
         .shadow(color: Color.black.opacity(0.1), radius: 5, x: 0, y: 2)
+    }
+    
+    /// Dismisses the keyboard
+    private func hideKeyboard() {
+        UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
     }
 }
 

@@ -12,24 +12,28 @@ struct CarouselView: View {
     let data: [MockItem]
 
     var body: some View {
-        TabView(selection: $selectedIndex) {
-            ForEach(0..<data.count, id: \.self) { index in
-                Image(data[index].image)
-                    .resizable()
-                    .frame(maxWidth: .infinity)
-                    .cornerRadius(10)
-                    .padding(.horizontal)
-                    .tag(index)
+        VStack {
+            // TabView for paging through images
+            TabView(selection: $selectedIndex) {
+                ForEach(0..<data.count, id: \.self) { index in
+                    Image(data[index].image)
+                        .resizable()
+                        .frame(maxWidth: .infinity)
+                        .cornerRadius(10)
+                        .padding(.horizontal)
+                        .tag(index)
+                }
             }
-        }
-        .tabViewStyle(PageTabViewStyle(indexDisplayMode: .never))
-        .frame(height: 180)
-        
-        HStack(spacing: 8) {
-            ForEach(0..<data.count, id: \.self) { index in
-                Circle()
-                    .fill(index == selectedIndex ? Color.blue : Color.gray)
-                    .frame(width: 8, height: 8)
+            .tabViewStyle(PageTabViewStyle(indexDisplayMode: .never))
+            .frame(height: 180)
+            
+            // Custom indicator dots
+            HStack(spacing: 8) {
+                ForEach(0..<data.count, id: \.self) { index in
+                    Circle()
+                        .fill(index == selectedIndex ? Color.blue : Color.gray)
+                        .frame(width: 8, height: 8)
+                }
             }
         }
     }

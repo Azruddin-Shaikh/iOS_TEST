@@ -7,19 +7,22 @@
 
 import Foundation
 
-
 class ContentViewModel: ObservableObject {
+    @Published private(set) var dataList: [MockItem] = []
     @Published var searchText = ""
     @Published var selectedCarouselIndex: Int = 0
-    @Published var dataList: [MockItem] = []
     
+    /// Returns the current carousel image based on selected index
     var currentCarouselImage: String {
         dataList[selectedCarouselIndex].image
     }
+    
+    /// Returns item data for the currently selected carousel index
     var currentItemData: [MockItemData] {
         dataList[selectedCarouselIndex].data
     }
     
+    /// Returns filtered data based on search text
     var filteredData: [MockItemData] {
         if searchText.isEmpty {
             return dataList[selectedCarouselIndex].data
@@ -30,7 +33,17 @@ class ContentViewModel: ObservableObject {
         }
     }
     
+    /// Initializes the view model and loads mock data
     init() {
-        dataList = MockService.shared.loadMockJson() ?? []
+        loadData()
+    }
+    
+    /// Loads mock data from the service
+    private func loadData() {
+        if let mockData = MockService.shared.loadMockJson() {
+            self.dataList = mockData
+        } else {
+            self.dataList = []
+        }
     }
 }
